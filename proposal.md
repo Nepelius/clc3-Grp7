@@ -10,3 +10,4 @@ The goal is to explore Prometheus and Grafana to monitor an application and expo
 * Lukas: Responsible for setting up Prometheus with our custom application
 * Ines: Inegrating Grafana to visualize metrics
 * Severin: Building the monitorable application
+* All: Deploy application to the cloud
