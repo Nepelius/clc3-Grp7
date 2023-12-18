@@ -7,3 +7,6 @@
 The goal is to explore Prometheus and Grafana to monitor an application and expose metrics. We will set up Prometheus to collect those metrics and to alert in case of issues. Additionally, we will set up Grafana to visualize our monitored applications. In our demo, we will present Prometheus and Grafana, as well as run a simulation to cause an alert.
 ## Milestones
 ## Responsibilities
+* Lukas: Responsible for setting up Prometheus with our custom application
+* Ines: Inegrating Grafana to visualize metrics
+* Severin: Building the monitorable application
