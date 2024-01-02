@@ -1,0 +1,30 @@
+- docker build -t clc3-nenepi .
+- docker run -it clc3-nenepi bash
+
+
+
+
+
+
+
+
+
+
+- az login
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "f88d4b73-6bb2-4b9a-abc7-eb96e5a6407c",
+    "id": "e13dc1bc-1e53-4822-bedf-9ead08d37d81",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure for Students",
+    "state": "Enabled",
+    "tenantId": "f88d4b73-6bb2-4b9a-abc7-eb96e5a6407c",
+    "user": {
+      "name": "s2210595012@fhooe.at",
+      "type": "user"
+    }
+  }
+]
+- az aks get-credentials --resource-group clc3-NeNePi --name clc3-monitor-project  
