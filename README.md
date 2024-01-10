@@ -20,6 +20,8 @@ az aks get-credentials --resource-group <rg_name> --name <cluster_name>
 Now we can execute a single command which installs Prometheus and Grafana via Helm Chart. Before that, let's create a namespace for the monitoring ressources
 ```
 kubectl create ns monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
 After this, all pods, services and other ressources related to Prometheus and Grafana are deployed. By executing ```kubectl get all``` you can list all installed ressources.
