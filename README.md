@@ -7,7 +7,7 @@ docker build .
 docker run -it -p 9090:9090 <image_name> /bin/sh
 ```
 
-### Kubernetes Cluster with AKS
+### AKS setup
 First, you have to login with your Azure account
 ```
 az login
@@ -17,6 +17,7 @@ Next, set your Subscription and download your credentials
 az account set --subscription <subscription_name>
 az aks get-credentials --resource-group <rg_name> --name <cluster_name>
 ```
+### Installing Prometheus and Grafana via Helm
 Now we can execute a single command which installs Prometheus and Grafana via Helm Chart. Before that, let's create a namespace for the monitoring ressources
 ```
 kubectl create ns monitoring
@@ -26,6 +27,7 @@ helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
 After this, all pods, services and other ressources related to Prometheus and Grafana are deployed. By executing ```kubectl get all``` you can list all installed ressources.
 
+### Port forwarding
 To access the Prometheus Dashboard, following port-forward is used
 ```
 kubectl port-forward -n monitoring pod/prometheus-monitoring-kube-prometheus-prometheus-0 9090
