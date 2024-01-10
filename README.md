@@ -4,7 +4,7 @@
 We created a Dockerfile that can be used to build a Dockerimage. Port-forwarding for the container is needed in order to access the Prometheus and Grafana Dashboards
 ```
 docker build .
-docker run -it -p 9090:9090 <image_name>
+docker run -it -p 9090:9090 <image_name> /bin/sh
 ```
 
 ### Kubernetes Cluster with AKS
