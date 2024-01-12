@@ -25,7 +25,7 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
-After this, all pods, services and other ressources related to Prometheus and Grafana are deployed. By executing ```kubectl get all``` you can list all installed ressources.
+After this, all pods, services and other ressources related to Prometheus and Grafana are deployed. By executing ```kubectl -n monitoring get all``` you can list all installed ressources.
 
 ### Port forwarding
 To access the Prometheus Dashboard, following port-forward is used
