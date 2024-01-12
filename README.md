@@ -45,5 +45,5 @@ In order to login to the Grafana Dashboard, use default username ```admin``` and
 First, a new namespace called mongodb and the bitnami packaged mongoDB helm chart is installed
 ```
 kubectl create ns mongodb
-helm install my-release oci://REGISTRY_NAME/REPOSITORY_NAME/mongodb -n mongodb
+helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb -n mongodb
 ```
