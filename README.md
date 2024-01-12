@@ -58,4 +58,4 @@ echo $MONGODB_ROOT_PASSWORD
 ```
 To actually access the database, you can install the [MongoDB Compass](https://www.mongodb.com/try/download/compass) application on your desktop environment and connect to the exposed port. When entering a new connection go to "Advanced Connection Options", "Authentication", "Username/Password" and enter your credentials.
 
-![MongoDB Compass](images/compass.png)
+![MongoDB Compass](images/compass.jpg)
