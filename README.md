@@ -42,7 +42,8 @@ Attention: Pod name might be slightly different
 In order to login to the Grafana Dashboard, use default username ```admin``` and password ```prom-operator```.
 
 ### MongoDB
-First, the bitnami packaged mongoDB helm chart is installed
+First, a new namespace called mongodb and the bitnami packaged mongoDB helm chart is installed
 ```
-helm install my-release oci://REGISTRY_NAME/REPOSITORY_NAME/mongodb
+kubectl create ns mongodb
+helm install my-release oci://REGISTRY_NAME/REPOSITORY_NAME/mongodb -n mongodb
 ```
