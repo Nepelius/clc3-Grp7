@@ -47,3 +47,15 @@ First, a new namespace called mongodb and the bitnami packaged mongoDB helm char
 kubectl create ns mongodb
 helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb -n mongodb
 ```
+After installing, the port of the mongoDB service can be forwarded to access from outside the cluster on port 27017
+```
+kubectl port-forward --namespace mongodb svc/mongodb 27017:27017
+```
+In order to login to the database, you need to specify the username=```root``` and the password you get by executing the following commands
+```
+export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 -d)
+echo $MONGODB_ROOT_PASSWORD
+```
+To actually access the database, you can install the [MongoDB Compass](https://www.mongodb.com/try/download/compass) application on your desktop environment and connect to the exposed port. When entering a new connection go to "Advanced Connection Options", "Authentication", "Username/Password" and enter your credentials.
+
+![MongoDB Compass](Dragster.jpg)
