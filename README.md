@@ -38,7 +38,7 @@ Access Grafana Dashboard
 ```
 kubectl port-forward -n monitoring pod/monitoring-grafana-6c7d669584-nqjk4 3000
 ```
-Attention: Pod name might be slightly different
+**Attention**: Pod name might be slightly different
 In order to login to the Grafana Dashboard, use default username ```admin``` and password ```prom-operator```.
 
 ### MongoDB
@@ -59,3 +59,34 @@ echo $MONGODB_ROOT_PASSWORD
 To actually access the database, you can install the [MongoDB Compass](https://www.mongodb.com/try/download/compass) application on your desktop environment and connect to the exposed port. When entering a new connection go to "Advanced Connection Options", "Authentication", "Username/Password" and enter your credentials.
 
 ![MongoDB Compass](Dragster.jpg)
+
+### MongoDB App
+
+A custom REST api app with python was delevolped inside the [mongodb_app](mongodb_app) folder. In order to deploy the app to the kubernetes cluster, following steps have to be done, beginning with creating the Docker image. Open a terminal inside the [mongodb_app](mongodb_app) folder.
+```
+docker build -t <docker_hub_username>/mongodb-app:0.0.1 .
+```
+This will build a docker image with python and all dependencies installed. Now we push this image to DockerHub in order to connect it with kubernetes.
+```
+docker push <docker_hub_username>/mongodb-app:0.0.1
+```
+**Attention**: You have to change the image name specified in [deployment.yaml](mongodb_app/deployment.yaml) to ```<docker_hub_username>/mongodb-app:0.0.1```.
+Next, you can deploy the app to the kubernetes cluster.
+```
+kubectl apply -f deployment.yaml -n mongodb
+```
+After a few minutes when executing ```kubectl get pods -n mongodb```, you should see the status of the mongodb-app as READY. If that is not the case, you probably spelled the image name wrong in [deployment.yaml](mongodb_app/deployment.yaml) or when executing the command.
+
+The app should be ready now, check this by executing a port forward.
+```
+kubectl port-forward service/mongodb-app 5000 -n mongodb
+```
+By opening "http://localhost:5000" in the browser, you should see the welcome message. On "http://localhost:5000/notes" all entries in the MongoDB database are listed.
+
+## Kubernetes Namespace overview
+```
+└── namespaces
+    ├── monitoring
+    └── mongodb
+```
+The ```monitoring``` namespace is responsible for Prometheus and Grafana, while all ressources of the MongoDB service and MongoDB app are stored within ```mongodb```.

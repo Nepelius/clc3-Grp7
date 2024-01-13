@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-app
+  template:
+    metadata:
+      labels:
+        app: mongodb-app
+    spec:
+      containers:
+        - name: mongodb-app
+          image: lnepel/mongodb-app:0.0.1  # Docker image name
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-app
+spec:
+  selector:
+    app: mongodb-app
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
