@@ -17,6 +17,11 @@ spec:
           image: lnepel/mongodb-app:0.0.1  # Docker image name
           ports:
             - containerPort: 5000
+          env:
+            - name: username
+              value: "username" # change to your mongodb username
+            - name: password
+              value: "password" # change to your mongodb password
 ---
 apiVersion: v1
 kind: Service
