@@ -326,16 +326,22 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 # Appendix
 ## Lessons learned
 - Tutorials are often not up to date as the technology changed very frequently.
-
+- The update process of a kubernetes deployment is only triggered when e.g. the image tag in the container section is changed
+- When deploying an image into kubernetes, the image must be accessible for kubernetes (e.g. by pushing it to DockerHub)
   
 ## Research
 ### Prometheus
 https://logz.io/blog/mongodb-monitoring-prometheus-best-practices/ 
 
-### Grafana:
+### Grafana
 https://grafana.com/docs/grafana/v9.0/dashboards/export-import/
 https://thriftly.io/docs/components/Thriftly-Deployment-Beyond-the-Basics/Metrics-Prometheus/Install-Create-Dashboard-Grafana.html
 
+### MongoDB
+* MongoDB service is installed via following Helm Chart: https://bitnami.com/stack/mongodb/helm
 
-
-
+### MongoDB App
+* The following code on GitHub was used for ideas how to make a REST API with Flask: https://gist.github.com/mmontone/370a43f4601a85abed3b37214586f21d
+* Ideas were also dadapted from a MongoDB blog: https://www.mongodb.com/developer/languages/python/flask-python-mongodb/
+* Documentation of PyMongo can be found here: https://www.mongodb.com/docs/drivers/pymongo/
+* This YouTube tutorial was also used: https://www.youtube.com/watch?v=3wNvKybVyaI&t=1246s&ab_channel=NeuralNine
