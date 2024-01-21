@@ -2,13 +2,17 @@ alertmanager:
   config:
     global:
       resolve_timeout: 2m
-      slack_api_url: https://hooks.slack.com/services/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
+      slack_api_url: https://hooks.slack.com/services/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
     route:
       group_by: ['namespace']
       group_wait: 30s
       group_interval: 2m
       repeat_interval: 5m
       receiver: 'slack-notifications'
+      routes:
+      - receiver: 'slack-notifications'
+        matchers:
+         - alertname = "SlackNotifications"
     receivers:
     - name: 'slack-notifications'
       slack_configs:

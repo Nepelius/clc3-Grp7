@@ -103,12 +103,9 @@ kubectl port-forward service/mongo-export-prometheus-mongodb-exporter 9216 -n mo
 
 ![MongoDB Metrics](images/mongodb_metrics.PNG)
 
-Additionally, the serviceMonitor is now in the "Targets" Tab on Prometheus [http://localhost:9090/targets]
+Additionally, the serviceMonitor is now in the "Targets" Tab on Prometheus [http://localhost:9090/targets]. This is from where the matrics are scraped.
 
 ![MongoDB Target](images/mongodb_target.PNG)
-
-### Add a new rule
-
 
 ### Setup Slack workspace and channel
 Create a new Slack workspace and a channel where the alerts should be posted to.
@@ -130,22 +127,27 @@ A new webhook URL will be created, which has to be saved to later add to the ale
 ### Setup alertmanager for Slack
 To change the alertmanager create a file [alertmanager.yaml](alertmanager.yaml) with following content.
 With the addition of the webhook url the alerts will now be sent to the selected Slack channel. Additionally, some formatting was added for the alert.
+The most important attributes are the ```slack_api_url``` with the webhook link and the ```channel``` with the channel where the message will be sent to.
 ```
 alertmanager:
   config:
     global:
       resolve_timeout: 2m
-      slack_api_url: <webhook url>
+      slack_api_url: <webhook-link>
     route:
       group_by: ['namespace']
       group_wait: 30s
       group_interval: 2m
       repeat_interval: 5m
       receiver: 'slack-notifications'
+      routes:
+      - receiver: 'slack-notifications'
+        matchers:
+         - alertname = "SlackNotifications"
     receivers:
     - name: 'slack-notifications'
       slack_configs:
-        - channel: '#<channel name>'
+        - channel: '#<channel>'
           send_resolved: true
           icon_url: https://avatars3.githubusercontent.com/u/3380462
           title: |-
@@ -172,10 +174,55 @@ alertmanager:
            {{ end }}
 ```
 
-Upgrade the **prometheus-community/kube-prometheus-stack** chart with the **"monitoring"** release.
+### Add a new rules
+To add new rules a new YAML file is created. The expressions use the values from the **mongodb-exporter**, which can also be testet at the Prometheus UI at [http://localhost:9090/graph].
+* The first one sends an alert if there are more than 5 objects in the 'admin' database.
+* The second and third one should send alerts if more than one isert is added in the last 10 seconds (does not work, maybe syntax of expression must be changed)
+
 ```
-helm upgrade monitoring prometheus-community/kube-prometheus-stack --values=alertmanager.yaml -n monitoring
+additionalPrometheusRulesMap:
+  rule-name:
+    groups:
+    - name: mongodb-exporter
+      rules:
+
+      # Alert for too many objects in the database for 30s
+      - alert: TooManyObjectsInDB
+        expr: mongodb_dbstats_objects{database="admin"} > 5
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Too many objects saved in the database."
+          description: "There have been more than 5 objects in the database for the last 30s."
+
+      # Alert for too many recent inserts in the collection
+      - alert: TooManyRecentInserts
+        expr: |
+            increase(mongodb_top_insert_count{collection="notes",database="admin"}[10s]) > 1
+        for: 0m
+        annotations:
+          summary: "Too many inserts (more than 5) in the last 10 seconds."
+          description: "Too many inserts (more than 5) in the last 10 seconds."
+
+      # Alert for too many recent queries in the collection
+      - alert: TooManyRecentQueries
+        expr: |
+            increase(mongodb_top_queries_count{database="admin", collection="notes"}[10s]) > 1
+        for: 0m
+        annotations:
+          summary: "Too many queries (more than 5) in the last 10 seconds."
+          description: "Too many queries (more than 5) in the last 10 seconds."
 ```
+
+Now the last two created files (alertmanager and the new alerts) can be added to the prometheus stack.
+```
+helm upgrade monitoring prometheus-community/kube-prometheus-stack -f mongodb_alerts.yaml -f alertmanager.yaml -n monitoring
+```
+
+If there are more than 5 objects in the database, an alert like this should be shown. The first one is always throwing alerts, but the second one is the one we created.
+
+![Alt text](images/slack_alert.png)
 
 ### MongoDB App
 
