@@ -153,7 +153,7 @@ helm install mongo-export prometheus-community/prometheus-mongodb-exporter --val
 
 ![MongoDB Service](images/mongodb_service.PNG)
 
-If this port is now forwarded the new metrics from MongoDB can be viewed there.
+If this port is now forwarded the new metrics from MongoDB can be viewed or the Prometheus UI on [http://localhost:9090/graph].
 ```
 kubectl port-forward service/mongo-export-prometheus-mongodb-exporter 9216 -n monitoring
 ```
@@ -163,6 +163,10 @@ kubectl port-forward service/mongo-export-prometheus-mongodb-exporter 9216 -n mo
 Additionally, the serviceMonitor is now in the "Targets" Tab on Prometheus [http://localhost:9090/targets]. This is from where the matrics are scraped.
 
 ![MongoDB Target](images/mongodb_target.PNG)
+
+At the end the ```kubectl -n monitoring get all``` command should show following output.
+
+![Alt text](images/get_all.png)
 
 ### Setup Slack workspace and channel
 Create a new Slack workspace and a channel where the alerts should be posted to.
@@ -277,7 +281,7 @@ Now the last two created files (alertmanager and the new alerts) can be added to
 helm upgrade monitoring prometheus-community/kube-prometheus-stack -f mongodb_alerts.yaml -f alertmanager.yaml -n monitoring
 ```
 
-If there are more than 5 objects in the database, an alert like this should be shown. The first one is always throwing alerts, but the second one is the one we created.
+If there are more than 5 objects in the database, an alert like this should be shown. The first one was added by prometheus-community, but the second one is the one we created.
 
 ![Alt text](images/slack_alert.png)
 
@@ -376,16 +380,23 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 - The update process of a kubernetes deployment is only triggered when e.g. the image tag in the container section is changed
 - When deploying an image into kubernetes, the image must be accessible for kubernetes (e.g. by pushing it to DockerHub)
 - Many concepts of kubernetes had been enforced during this project: namespaces, services, access services from inside the cluster (with DNS names), deployments, pods, ...
+- Go through the whole values.yaml file and check if the value you need is in there ...
 - Minimize Azure costs by stopping the kubernetes cluster ;)
   
 ## Research
 ### Prometheus
-https://logz.io/blog/mongodb-monitoring-prometheus-best-practices/ 
+- https://logz.io/blog/mongodb-monitoring-prometheus-best-practices/ 
+- https://www.youtube.com/watch?v=HwB2oWUdoT4
+- https://shailender-choudhary.medium.com/monitor-azure-kubernetes-service-aks-with-prometheus-and-grafana-8e2fe64d1314
+- https://www.opsramp.com/guides/prometheus-monitoring/prometheus-alerting/
+- https://devopscube.com/prometheus-alert-manager/
+- https://grafana.com/blog/2020/02/25/step-by-step-guide-to-setting-up-prometheus-alertmanager-with-slack-pagerduty-and-gmail/
+- https://prometheus.io/
+- https://github.com/prometheus-community/helm-charts
 
 ### Grafana
-https://grafana.com/docs/grafana/v9.0/dashboards/export-import/
-
-https://thriftly.io/docs/components/Thriftly-Deployment-Beyond-the-Basics/Metrics-Prometheus/Install-Create-Dashboard-Grafana.html
+- https://grafana.com/docs/grafana/v9.0/dashboards/export-import/
+- https://thriftly.io/docs/components/Thriftly-Deployment-Beyond-the-Basics/Metrics-Prometheus/Install-Create-Dashboard-Grafana.html
 
 ### MongoDB
 * MongoDB service is installed via following Helm Chart: https://bitnami.com/stack/mongodb/helm
