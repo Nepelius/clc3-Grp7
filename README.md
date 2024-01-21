@@ -291,7 +291,8 @@ The menu on the right was used to enable filters and lookup menus (via hovering 
 ### Results
 A few graphs later, our end result looks like this:
 
-![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a002922a-cc78-4b1a-b181-27191b184359)
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/856f7ec5-d4e4-42db-8345-d3c7969becf8)
+
 
 Thanks to the template we used, there are additional metrics like Uptime, Memory Chunks, Upness and a graph how many series are created and deleted over time:
 
