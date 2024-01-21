@@ -6,7 +6,7 @@ In this project, we build a monitorable application, which will be deployed and 
 The responsibilities changed since our proposal.
 
 * Lukas: Building the monitorable application with Python and MongoDB and create deployment in kubernetes.
-* Ines: Inegrating Grafana to visualize metrics
+* Ines: Integrating Grafana to visualize metrics
 * Severin: Responsible for setting up Prometheus with our custom application. Creating rules for metric alerts via Slack
 * All: Basic setup of the kubernetes cluster with Prometheus and Grafana.
 
