@@ -293,7 +293,10 @@ A few graphs later, our end result looks like this:
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a002922a-cc78-4b1a-b181-27191b184359)
 
-Thanks to the template we used, there are additional metrics like Uptime, Memory Chunks, Upness and a graph how many series are created and deleted over time.
+Thanks to the template we used, there are additional metrics like Uptime, Memory Chunks, Upness and a graph how many series are created and deleted over time:
+
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/e85379e2-9c99-4c09-83d3-00f03f0e4658)
+
 
 
 
