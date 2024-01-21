@@ -187,7 +187,7 @@ This will build a docker image with python and all dependencies installed. Now w
 ```
 docker push <docker_hub_username>/mongodb-app:0.0.1
 ```
-**Attention**: You have to change the image name specified in [deployment.yaml](mongodb_app/deployment.yaml) to ```<docker_hub_username>/mongodb-app:0.0.1```.
+**Attention**: You have to change the image name specified in [deployment.yaml](mongodb_app/deployment.yaml) to ```<docker_hub_username>/mongodb-app:0.0.1```. Additionally, please change the MongoDB username and password in the ```env``` section.
 Next, you can deploy the app to the kubernetes cluster.
 ```
 kubectl apply -f deployment.yaml -n mongodb
