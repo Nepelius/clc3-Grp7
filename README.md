@@ -298,9 +298,18 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/e85379e2-9c99-4c09-83d3-00f03f0e4658)
 
+# Appendix
+## Lessons learned
+- Tutorials are often not up to date as the technology changed very frequently.
 
+  
+## Resources
+### Prometheus
+https://logz.io/blog/mongodb-monitoring-prometheus-best-practices/ 
 
-
+### Grafana:
+https://grafana.com/docs/grafana/v9.0/dashboards/export-import/
+https://thriftly.io/docs/components/Thriftly-Deployment-Beyond-the-Basics/Metrics-Prometheus/Install-Create-Dashboard-Grafana.html
 
 
 
