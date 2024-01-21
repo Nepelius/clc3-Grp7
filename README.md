@@ -267,20 +267,24 @@ The alert additionally has to be stored in a folder and added to an evalaluation
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/758058a9-2c3b-435e-bf11-88e0633ee8d4)
 
-The results (after changing some visuals like the color palette) looks like this:
+The results (after changing some visuals like the color palette) look like this:
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/e8a0375b-73c6-4d30-9569-ad1495a95392)
 
 ### Transformations
-The data can also be transformed. To show the highest 10 amount of objects and their latest timestamps, the timestamps were formated, grouped, sorted and limited:
+The data can also be transformed. 
 
-![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a6155e85-0604-40a2-bf08-2dbf2b446a2c)
-
-The graph type was changed to "Table" but the metrics stayed the same as before: 
+We created a new graph: the metrics stayed the same as before but the graph type was changed to "Table":
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/8e37922f-0e60-445d-8a46-072eb31e6347)
 
-The menu on the right can be used to enable filters and lookup menus (via hovering a data point) as well as the design changes including pages:
+To show the highest 10 amount of objects and their latest timestamps, the timestamps were formated, grouped, sorted and limited:
+
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a6155e85-0604-40a2-bf08-2dbf2b446a2c)
+
+
+
+The menu on the right was used to enable filters and lookup menus (via hovering a data point) as well as the design changes including pages:
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/fd9906dc-7a15-4484-be3c-8262713dab9c)
 
