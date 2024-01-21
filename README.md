@@ -236,7 +236,10 @@ After clicking "New" one can import an existing dashboard to build upon from htt
 
 ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/5e26a147-7d1d-44f2-81e9-4e13b74ab854)
 
-We choose the "Prometheus 2.0 Overview" dashboard: https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/.
+We choose the "Prometheus 2.0 Overview" dashboard: https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/ and set our data source after loading it via id:
+
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/8c8611bd-df4e-4ede-99cf-c2239255e138)
+
 
 After opening the dashboard, new visualizations can be added with the button on the upper right: 
 
