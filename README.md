@@ -323,7 +323,7 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 # Appendix
 ## Lessons learned
 - Tutorials are often not up to date as the technology changed very frequently.
-
+- Don't forget stopping the cloud services
   
 ## Resources
 ### Prometheus
