@@ -2,7 +2,7 @@
 ## Introduction
 In this project, we build a monitorable application, which will be deployed and monitored inside of a kubernetes cluster in Azure. The monitorable app is a Python REST API, which can create, get and delete notes stored in a MongoDB notes database. Prometheus is resonsible for scraping metrics from the app and Grafana is using these metrics to visualize them in dashboards. We also defined rules in Prometheus in oder to trigger Alerts via Slack.
 
-## Responibilites
+## Responsibilities
 The responsibilities changed since our proposal.
 
 * Lukas: Building the monitorable application with Python and MongoDB and create deployment in kubernetes.
