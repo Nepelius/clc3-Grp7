@@ -38,7 +38,7 @@ Access Grafana Dashboard
 ```
 kubectl port-forward -n monitoring pod/monitoring-grafana-6c7d669584-nqjk4 3000
 ```
-**Attention**: Pod name might be slightly different
+**Attention**: Pod name might be slightly different.
 In order to login to the Grafana Dashboard, use default username ```admin``` and password ```prom-operator```.
 
 ### MongoDB
@@ -207,3 +207,65 @@ By opening "http://localhost:5000" in the browser, you should see the welcome me
     └── mongodb
 ```
 The ```monitoring``` namespace is responsible for Prometheus and Grafana, while all ressources of the MongoDB service and MongoDB app are stored within ```mongodb```.
+
+
+### Grafana
+(As previously mentioned, use to access the Grafana Dashboard via
+```
+kubectl port-forward -n monitoring pod/monitoring-grafana-6c7d669584-nqjk4 3000
+```
+**Attention**: Pod name might be slightly different.
+In order to login to the Grafana Dashboard, use default username ```admin``` and password ```prom-operator```.)
+
+#### Connect to Prometheus
+In order to visualize our metrics, click "Data sources" in the menu on the upper left:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/26db1eae-a922-4bc6-9c11-12847ab812a3)
+
+Now click "Add a new data source" and choose "Prometheus".
+Then, connect with the Prometheus server url and save the data source:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/135f9a39-e891-443f-8ef3-b3761f55362a)
+
+#### Build a Dashboard
+To create a dashboard, the menu can be navigated to "Dashboards":
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/33b5c559-efe2-4d69-b911-4b76485cd3dd)
+After clicking "New" one can import an existing dashboard to build upon from https://grafana.com/grafana/dashboards/:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/5e26a147-7d1d-44f2-81e9-4e13b74ab854)
+
+We choose the "Prometheus 2.0 Overview" dashboard: https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/.
+
+After opening the dashboard, new visualizations can be added with the button on the upper right: ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/91c5c83c-5732-47d4-8265-d600e0a48b25)
+We first added a metric, filtered and set the minimum stepsize to one. After pressing "run queries" a graph is created:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/e2f0c084-bd7d-46d1-85a3-75696db213f0)
+
+
+On the right, one can choose the type and the visuals of the graph, e.g. toggling the Legend visibility:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/1f013407-8600-44a7-81f5-8cd3d02f2bfc)
+
+Grafana can also add alerts the the graphs: ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/d681e171-1e82-40e6-8d5f-6e3d1cdd9854)
+To create an alert that fires if the amount of objects rises above 5, a reduce function and a threshold is required:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a85a55fd-0d36-4cc1-b036-b85530a5530f)
+The alert additionally has to be stored in a folder and added to an evalaluation group and can then be saved:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/758058a9-2c3b-435e-bf11-88e0633ee8d4)
+
+The results (after changing some visuals like the color palette) looks like this:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/e8a0375b-73c6-4d30-9569-ad1495a95392)
+
+
+The data can also be transformed. To show the highest 10 amount of objects and their latest timestamps, the timestamps were formated, grouped, sorted and limited:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a6155e85-0604-40a2-bf08-2dbf2b446a2c)
+The graph type was changed to "Table" but the metrics stayed the same as before: ![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/8e37922f-0e60-445d-8a46-072eb31e6347)
+The menu on the right can be used to enable filters and lookup menus (via hovering a data point) as well as the design changes including pages:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/fd9906dc-7a15-4484-be3c-8262713dab9c)
+
+
+A few graphs later, our end result looks like this:
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a002922a-cc78-4b1a-b181-27191b184359)
+
+Thanks to the template we used, there are additional metrics like Uptime, Memory Chunks, Upness and a graph how many series are created and deleted over time.
+
+
+
+
+
+
+
