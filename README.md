@@ -1,13 +1,16 @@
 # CLC3 Group 7 - Monitoring with Prometheus and Grafana
-## Organizational
-### Introduction
+## Introduction
+In this project, we build a monitorable application, which will be deployed and monitored inside of a kubernetes cluster in Azure. The monitorable app is a Python REST API, which can create, get and delete notes stored in a MongoDB notes database. Prometheus is resonsible for scraping metrics from the app and Grafana is using these metrics to visualize them in dashboards. We also defined rules in Prometheus in oder to trigger Alerts via Slack.
 
-### Responibilites
-The responsibility changed since our proposal.
+## Responibilites
+The responsibilities changed since our proposal.
 
-* 
+* Lukas: Building the monitorable application with Python and MongoDB and create deployment in kubernetes.
+* Ines: Inegrating Grafana to visualize metrics
+* Severin: Responsible for setting up Prometheus with our custom application. Creating rules for metric alerts via Slack
+* All: Basic setup of the kubernetes cluster with Prometheus and Grafana.
 
-### Kubernetes Namespace overview
+## Kubernetes Namespace overview
 ```
 └── namespaces
     ├── monitoring
@@ -323,9 +326,9 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 # Appendix
 ## Lessons learned
 - Tutorials are often not up to date as the technology changed very frequently.
-- Don't forget stopping the cloud services
+
   
-## Resources
+## Research
 ### Prometheus
 https://logz.io/blog/mongodb-monitoring-prometheus-best-practices/ 
 
