@@ -1,4 +1,20 @@
 # CLC3 Group 7 - Monitoring with Prometheus and Grafana
+## Organizational
+### Introduction
+
+### Responibilites
+The responsibility changed since our proposal.
+
+* 
+
+### Kubernetes Namespace overview
+```
+└── namespaces
+    ├── monitoring
+    └── mongodb
+```
+The ```monitoring``` namespace is responsible for Prometheus and Grafana, while all ressources of the MongoDB service and MongoDB app are stored within ```mongodb```.
+
 ## Setup
 ### Docker
 We created a Dockerfile that can be used to build a Dockerimage. Port-forwarding for the container is needed in order to access the Prometheus and Grafana Dashboards
@@ -59,6 +75,44 @@ echo $MONGODB_ROOT_PASSWORD
 To actually access the database, you can install the [MongoDB Compass](https://www.mongodb.com/try/download/compass) application on your desktop environment and connect to the exposed port. When entering a new connection go to "Advanced Connection Options", "Authentication", "Username/Password" and enter your credentials.
 
 ![MongoDB Compass](images/compass.JPG)
+
+### MongoDB App
+
+A custom REST api app with python was delevolped inside the [mongodb_app](mongodb_app) folder. In order to deploy the app to the kubernetes cluster, following steps have to be done, beginning with creating the Docker image. Open a terminal inside the [mongodb_app](mongodb_app) folder.
+```
+docker build -t <docker_hub_username>/mongodb-app:0.0.1 .
+```
+This will build a docker image with python and all dependencies installed. Now we push this image to DockerHub in order to connect it with kubernetes.
+```
+docker push <docker_hub_username>/mongodb-app:0.0.1
+```
+**Attention**: You have to change the image name specified in [deployment.yaml](mongodb_app/deployment.yaml) to ```<docker_hub_username>/mongodb-app:0.0.1```. Additionally, please change the MongoDB username and password in the ```env``` section.
+Next, you can deploy the app to the kubernetes cluster.
+```
+kubectl apply -f deployment.yaml -n mongodb
+```
+After a few minutes when executing ```kubectl get pods -n mongodb```, you should see the status of the mongodb-app as READY. If that is not the case, you probably spelled the image name wrong in [deployment.yaml](mongodb_app/deployment.yaml) or when executing the command.
+
+The app should be ready now, check this by executing a port forward.
+```
+kubectl port-forward service/mongodb-app 5000 -n mongodb
+```
+By opening "http://localhost:5000" in the browser, you should see the welcome message. On "http://localhost:5000/notes" all entries in the MongoDB database are listed.
+
+With an API tool like Insomnia, POST, DELET and GET requests can be sent to the MongoDB API app on port 5000.
+The following image shows the creation of a new note entry in the "notes" MongoDB database:
+
+![create note](images/create_note.JPG)
+
+Additionaly, note entries can be deleted by making a DELETE request. All entries with the specified name will be deleted.
+
+![delete notes](images/delete_notes.JPG)
+
+**Note**: POST and DELETE methods are located at localhost:5000/notes.
+Finally, when visiting the site localhost:5000/notes in the browser, all stored note entries are displayed.
+When visiting localhost:5000/notes/<name>, a filter on the person specified can be viewed:
+
+![get filter](images/get_filter.JPG)
 
 ### Activate prometheus-mongodb-exporter
 First download mongodb-exporter and unzip it. (in our case, we created a directory beforehand where we downloaded it to)
@@ -176,38 +230,6 @@ Upgrade the **prometheus-community/kube-prometheus-stack** chart with the **"mon
 ```
 helm upgrade monitoring prometheus-community/kube-prometheus-stack --values=alertmanager.yaml -n monitoring
 ```
-
-### MongoDB App
-
-A custom REST api app with python was delevolped inside the [mongodb_app](mongodb_app) folder. In order to deploy the app to the kubernetes cluster, following steps have to be done, beginning with creating the Docker image. Open a terminal inside the [mongodb_app](mongodb_app) folder.
-```
-docker build -t <docker_hub_username>/mongodb-app:0.0.1 .
-```
-This will build a docker image with python and all dependencies installed. Now we push this image to DockerHub in order to connect it with kubernetes.
-```
-docker push <docker_hub_username>/mongodb-app:0.0.1
-```
-**Attention**: You have to change the image name specified in [deployment.yaml](mongodb_app/deployment.yaml) to ```<docker_hub_username>/mongodb-app:0.0.1```. Additionally, please change the MongoDB username and password in the ```env``` section.
-Next, you can deploy the app to the kubernetes cluster.
-```
-kubectl apply -f deployment.yaml -n mongodb
-```
-After a few minutes when executing ```kubectl get pods -n mongodb```, you should see the status of the mongodb-app as READY. If that is not the case, you probably spelled the image name wrong in [deployment.yaml](mongodb_app/deployment.yaml) or when executing the command.
-
-The app should be ready now, check this by executing a port forward.
-```
-kubectl port-forward service/mongodb-app 5000 -n mongodb
-```
-By opening "http://localhost:5000" in the browser, you should see the welcome message. On "http://localhost:5000/notes" all entries in the MongoDB database are listed.
-
-## Kubernetes Namespace overview
-```
-└── namespaces
-    ├── monitoring
-    └── mongodb
-```
-The ```monitoring``` namespace is responsible for Prometheus and Grafana, while all ressources of the MongoDB service and MongoDB app are stored within ```mongodb```.
-
 
 ## Grafana
 (As previously mentioned, use to access the Grafana Dashboard via
