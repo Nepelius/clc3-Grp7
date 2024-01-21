@@ -328,6 +328,8 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 - Tutorials are often not up to date as the technology changed very frequently.
 - The update process of a kubernetes deployment is only triggered when e.g. the image tag in the container section is changed
 - When deploying an image into kubernetes, the image must be accessible for kubernetes (e.g. by pushing it to DockerHub)
+- Many concepts of kubernetes had been enforced during this project: namespaces, services, access services from inside the cluster (with DNS names), deployments, pods, ...
+- Minimize Azure costs by stopping the kubernetes cluster ;)
   
 ## Research
 ### Prometheus
