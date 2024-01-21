@@ -1,0 +1,14 @@
+mongodb:
+  uri: "mongodb://root:ssr0ojsSv9@mongodb.mongodb.svc.cluster.local:27017"
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9216"
+  prometheus.io/path: /metrics
+
+serviceMonitor:
+  enabled: true
+  interval: 20s
+  namespace:
+  additionalLabels:
+    release: prometheus
