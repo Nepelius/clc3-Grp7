@@ -393,9 +393,16 @@ Thanks to the template we used, there are additional metrics like Uptime, Memory
 - https://grafana.com/blog/2020/02/25/step-by-step-guide-to-setting-up-prometheus-alertmanager-with-slack-pagerduty-and-gmail/
 - https://prometheus.io/
 - https://github.com/prometheus-community/helm-charts
+- https://www.youtube.com/watch?v=bTxD4yoeJQ8
+- https://shailender-choudhary.medium.com/monitor-azure-kubernetes-service-aks-with-prometheus-and-grafana-8e2fe64d1314
+- https://youtu.be/QoDqxm7ybLc?si=FziCZFbuqsbZ2e6D
+- https://youtu.be/h4Sl21AKiDg?si=48mvdHWQXQ5hj-5E
 
 ### Grafana
 - https://grafana.com/docs/grafana/v9.0/dashboards/export-import/
+- https://www.youtube.com/watch?v=bTxD4yoeJQ8
+- https://shailender-choudhary.medium.com/monitor-azure-kubernetes-service-aks-with-prometheus-and-grafana-8e2fe64d1314
+- https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/navigate-k8s-monitoring/#navigate-to-kubernetes-monitoring
 - https://thriftly.io/docs/components/Thriftly-Deployment-Beyond-the-Basics/Metrics-Prometheus/Install-Create-Dashboard-Grafana.html
 
 ### MongoDB
