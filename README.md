@@ -337,7 +337,8 @@ Grafana can also add alerts the the graphs:
 
 To create an alert that fires if the amount of objects rises above 5, a reduce function and a threshold is required:
 
-![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/a85a55fd-0d36-4cc1-b036-b85530a5530f)
+![image](https://github.com/Nepelius/clc3-Grp7/assets/151569651/2da93650-0dc5-4304-9dd8-cdf693b3cb9c)
+
 
 The alert additionally has to be stored in a folder and added to an evalaluation group and can then be saved:
 
